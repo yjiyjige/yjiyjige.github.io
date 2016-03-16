@@ -1,0 +1,815 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Swift," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="基本运算符Swift支持大部分C语言运算符，并且添加许多新特性来减少常规编码错误。比如赋值号=不返回值、算术运算符（+、-、*、/等）会检测并且不允许值溢出。
+元组赋值可理解为把元组分解成单个元素：
+123let (x, y) = (1, 2)println(&quot;the x is \(x)&quot;)println(&quot;the y is \(y)&quot;)
+Swift支持对浮点数进行求余：
+1let divisio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift学习笔记（二）">
+<meta property="og:url" content="http://yjiyjige.github.io/2015/08/01/learning-swift-2/index.html">
+<meta property="og:site_name" content="YJIYJIGE BLOG">
+<meta property="og:description" content="基本运算符Swift支持大部分C语言运算符，并且添加许多新特性来减少常规编码错误。比如赋值号=不返回值、算术运算符（+、-、*、/等）会检测并且不允许值溢出。
+元组赋值可理解为把元组分解成单个元素：
+123let (x, y) = (1, 2)println(&quot;the x is \(x)&quot;)println(&quot;the y is \(y)&quot;)
+Swift支持对浮点数进行求余：
+1let divisio">
+<meta property="og:image" content="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/setVennDiagram_2x.png">
+<meta property="og:image" content="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/setEulerDiagram_2x.png">
+<meta property="og:updated_time" content="2015-08-13T14:16:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift学习笔记（二）">
+<meta name="twitter:description" content="基本运算符Swift支持大部分C语言运算符，并且添加许多新特性来减少常规编码错误。比如赋值号=不返回值、算术运算符（+、-、*、/等）会检测并且不允许值溢出。
+元组赋值可理解为把元组分解成单个元素：
+123let (x, y) = (1, 2)println(&quot;the x is \(x)&quot;)println(&quot;the y is \(y)&quot;)
+Swift支持对浮点数进行求余：
+1let divisio">
+<meta name="twitter:image" content="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/setVennDiagram_2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Swift学习笔记（二） | YJIYJIGE BLOG </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">YJIYJIGE BLOG</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">He is so lazy and nothing left~</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Swift学习笔记（二）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-08-01T07:58:55+08:00" content="2015-08-01">
+              2015-08-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Coding/" itemprop="url" rel="index">
+                    <span itemprop="name">Coding</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/08/01/learning-swift-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/01/learning-swift-2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基本运算符"><a href="#基本运算符" class="headerlink" title="基本运算符"></a>基本运算符</h2><p>Swift支持大部分C语言运算符，并且添加许多新特性来减少常规编码错误。比如赋值号<code>=</code>不返回值、算术运算符（<code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>等）会检测并且不允许值溢出。</p>
+<p>元组赋值可理解为把元组分解成单个元素：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> (x, y) = (<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"><span class="built_in">println</span>(<span class="string">"the x is <span class="subst">\(x)</span>"</span>)</span><br><span class="line"><span class="built_in">println</span>(<span class="string">"the y is <span class="subst">\(y)</span>"</span>)</span><br></pre></td></tr></table></figure>
+<p>Swift支持对浮点数进行求余：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> division = <span class="number">5.0</span> % <span class="number">2.0</span> <span class="comment">// 1.0</span></span><br></pre></td></tr></table></figure>
+<p>Swift提供<strong>恒等</strong>（<code>===</code>）和<strong>不恒等</strong>（<code>!==</code>）运算符，用来判断两个变量是否引用同一个实例。</p>
+<h2 id="空合运算符"><a href="#空合运算符" class="headerlink" title="空合运算符"></a>空合运算符</h2><p><strong>空合运算符</strong>（Nil Coalescing Operator）<code>a ?? b</code>，将可选类型<code>a</code>进行判空处理，如果<code>a</code>包含值就进行解封，否则返回一个默认值<code>b</code>。空合运算符需要满足两个条件：</p>
+<ol>
+<li>表达式中的<code>a</code>必须是可选类型</li>
+<li>默认值<code>b</code>的类型必须和<code>a</code>的存储值类型一致</li>
+</ol>
+<p>空合运算符其实是对下列表达式的简写：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a != <span class="literal">nil</span> ? a! : b</span><br></pre></td></tr></table></figure>
+<p>注意一点，该运算符具有“短路”特性，如果<code>a</code>有值，那么返回的是<code>a</code>的存储值，<code>b</code>表达式不会被执行。</p>
+<h2 id="区间运行符"><a href="#区间运行符" class="headerlink" title="区间运行符"></a>区间运行符</h2><p><strong>闭区间运算符</strong><code>a...b</code>，定义一个包含从<code>a</code>到<code>b</code>所有值的区间，<code>b</code><strong>必须大于</strong><code>a</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> <span class="number">1</span>...<span class="number">5</span> &#123;</span><br><span class="line">    <span class="built_in">println</span>(<span class="string">"<span class="subst">\(index)</span> * 5 = <span class="subst">\(index * <span class="number">5</span>)</span>"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 1 * 5 = 5</span></span><br><span class="line"><span class="comment">// 2 * 5 = 10</span></span><br><span class="line"><span class="comment">// 3 * 5 = 15</span></span><br><span class="line"><span class="comment">// 4 * 5 = 20</span></span><br><span class="line"><span class="comment">// 5 * 5 = 25</span></span><br></pre></td></tr></table></figure>
+<p><strong>半开区间运算符</strong><code>a..&lt;b</code>，定义一个从<code>a</code>开始到<code>b</code>但不包括<code>b</code>的区间。对数组下标之类操作很有用。</p>
+<h2 id="字符串和字符"><a href="#字符串和字符" class="headerlink" title="字符串和字符"></a>字符串和字符</h2><p><strong>字符串</strong>（String）是有序的<strong>字符</strong>（Character）类型的值的集合。</p>
+<p><strong>字符串是值类型的</strong>。一个新的字符串对其进行常量、变量赋值或者是在函数中传递时，会进行值拷贝。可以保证原来的字符串不被修改。</p>
+<p>通过标明一个<code>Character</code>类型注解并通过字符字面量进行赋值，可以建立一个独立的字符常量或变量：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> yenSign: <span class="type">Character</span> = <span class="string">"¥"</span> <span class="comment">// 明确指明不是String类型</span></span><br></pre></td></tr></table></figure>
+<p>字符串长度可以用全局函数<code>count</code>获得：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> country = <span class="string">"China"</span></span><br><span class="line"><span class="keyword">let</span> length = <span class="built_in">count</span>(country)</span><br><span class="line"><span class="built_in">println</span>(<span class="string">"the String length is <span class="subst">\(length)</span>"</span>)</span><br></pre></td></tr></table></figure>
+<p>注意：不同的Unicode字符以及相同Unicode字符的不同表示方式可能需要不同数量的内存空间来存储。所以Swift中的字符在一个字符串中并不一定占用相同的内存空间。</p>
+<p><strong>字符串插值</strong>（String Interpolation）是一种构建新字符串的方式，可以将常量、变量、字面量、表达式插入到字符串中每一项包裹在<code>\()</code>中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> multiplier = <span class="number">3</span></span><br><span class="line"><span class="keyword">let</span> message = <span class="string">"<span class="subst">\(multiplier)</span> 乘以 2.5 是 <span class="subst">\(Double(multiplier)</span> * 2.5)"</span></span><br></pre></td></tr></table></figure>
+<p>判断字符串相等可以直接用<code>==</code>判断。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p><strong>数组</strong>（Array）使用有序列表存储同一类型多个值，相同的值可以多次出现在不同位置。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> shoppingList: [<span class="type">String</span>] = [<span class="string">"eggs"</span>, <span class="string">"milk"</span>]</span><br><span class="line">或</span><br><span class="line"><span class="keyword">var</span> shoppingList = [<span class="string">"eggs"</span>, <span class="string">"milk"</span>] <span class="comment">// 自动类型推断为[String]</span></span><br></pre></td></tr></table></figure>
+<p>上述例子中<code>shoppingList</code>称为”字符串类型的数组“，数组中的元素只能为字符串类型。</p>
+<p>Swift中数组支持使用<code>+</code>或<code>+=</code>将两个类型一致的数组进行拼接：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> students1 = [<span class="string">"yjiyjige"</span>, <span class="string">"xiaomin"</span>]</span><br><span class="line"><span class="keyword">let</span> students2 = [<span class="string">"zhangsan"</span>, <span class="string">"lishi"</span>]</span><br><span class="line"><span class="keyword">let</span> allStudents = students1 + students2</span><br><span class="line"><span class="built_in">println</span>(<span class="string">"all students <span class="subst">\(allStudents)</span>"</span>)</span><br></pre></td></tr></table></figure>
+<p>数组下标支持区间运算符，用于截取数组中的某一段。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> students = [<span class="string">"yjiyjige"</span>, <span class="string">"xiaomin"</span>, <span class="string">"zhangsan"</span>, <span class="string">"lishi"</span>]</span><br><span class="line"><span class="keyword">let</span> subStudents = students[<span class="number">0</span>...<span class="number">2</span>] <span class="comment">// [yjiyjige, xiaomin, zhangsan]</span></span><br><span class="line"><span class="built_in">println</span>(<span class="string">"all students <span class="subst">\(subStudents)</span>"</span>)</span><br></pre></td></tr></table></figure>
+<p>使用<code>for-in</code>循环来遍历数组时，如果同时需要数据项与对应的索引值，可以使用全局函数<code>enumerate</code>来遍历：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> students = [<span class="string">"yjiyjige"</span>, <span class="string">"xiaomin"</span>, <span class="string">"zhangsan"</span>, <span class="string">"lishi"</span>]</span><br><span class="line"><span class="keyword">for</span> (index, value) <span class="keyword">in</span> <span class="built_in">enumerate</span>(students) &#123;</span><br><span class="line">    <span class="built_in">println</span>(<span class="string">"student at <span class="subst">\(index)</span> is <span class="subst">\(value)</span>"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用构造语法<code>[someType]()</code>来创建一个特定数据类型构成的空数组:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> someInts = [<span class="type">Int</span>]()</span><br><span class="line"><span class="built_in">println</span>(<span class="string">"someInts is of type [Int] with <span class="subst">\(someInts.<span class="built_in">count</span>)</span> items。"</span>)</span><br><span class="line">someInts.append(<span class="number">3</span>) <span class="comment">// someInts现在包含一个INT值</span></span><br><span class="line">someInts = [] <span class="comment">// someInts现在是空数组，但是仍然是[Int]类型的。</span></span><br></pre></td></tr></table></figure>
+<p>Swift中数组类型提供一个可以创建特定大小并且所有数据都被设置为默认值的构造方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tenString = [<span class="type">String</span>](<span class="built_in">count</span>: <span class="number">10</span>, repeatedValue: <span class="string">"hello"</span>)</span><br><span class="line">等同于</span><br><span class="line"><span class="keyword">var</span> tenString = <span class="type">Array</span>(<span class="built_in">count</span>: <span class="number">10</span>, repeatedValue: <span class="string">"hello"</span>) <span class="comment">// 类型推断</span></span><br></pre></td></tr></table></figure>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p><strong>集合</strong>（Set）用来存储相同类型但没有确定顺序的值，值相同的元素只能有一个。</p>
+<p>Swift中集合类型用<code>Set&lt;someType&gt;</code>表示，<code>someType</code>是集合支持的存储类型。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> letters = <span class="type">Set</span>&lt;<span class="type">Character</span>&gt;()</span><br><span class="line"><span class="built_in">println</span>(<span class="string">"letters is of type Set&lt;Character&gt; with <span class="subst">\(letters.<span class="built_in">count</span>)</span> items."</span>)</span><br><span class="line">letters.insert(<span class="string">"a"</span>) <span class="comment">// letters现在含有1个Character类型的值</span></span><br><span class="line">letters = [] <span class="comment">// letters现在是一个空的Set, 但是它依然是Set&lt;Character&gt;类型</span></span><br></pre></td></tr></table></figure>
+<p>可以使用一个数组字面量来构造一个集合，并且可以使用简化形式初始化一个或多个集合元素。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> favoriteGenres: <span class="type">Set</span>&lt;<span class="type">String</span>&gt; = [<span class="string">"Rock"</span>, <span class="string">"Classical"</span>, <span class="string">"Hip hop"</span>]</span><br><span class="line"> <span class="comment">// 可以去掉Set后面的类型，因为可以自动类型推断；但Set就不能去了，因为默认是Array</span></span><br><span class="line"><span class="keyword">var</span> favoriteGenres: <span class="type">Set</span> = [<span class="string">"Rock"</span>, <span class="string">"Classical"</span>, <span class="string">"Hip hop"</span>]</span><br></pre></td></tr></table></figure>
+<p>集合类型元素是没有顺序的，为了按照特定顺序来遍历一个集合中的值，可以使用全局函数<code>sorted</code>，它将返回一个排好序的数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> students: <span class="type">Set</span> = [<span class="string">"yjiyjige"</span>, <span class="string">"xiaomin"</span>, <span class="string">"zhangsan"</span>, <span class="string">"lishi"</span>]</span><br><span class="line"><span class="keyword">for</span> name <span class="keyword">in</span> sorted(students) &#123;</span><br><span class="line">    <span class="built_in">println</span>(<span class="string">"<span class="subst">\(name)</span>"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// result: [lishi, xiaomin, yjiyjige, zhangsan]</span></span><br></pre></td></tr></table></figure>
+<p>Swift中集合支持<strong>交集</strong>、<strong>差集</strong>、<strong>并集</strong>、<strong>排除</strong>操作：</p>
+<p><img src="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/setVennDiagram_2x.png" alt="Set Venn Diagram"></p>
+<p>集合之间的元素不同有如下情况：</p>
+<p><img src="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Art/setEulerDiagram_2x.png" alt="Set Euler Diagram"></p>
+<ul>
+<li>使用“是否等”运算符<code>==</code>来判断两个集合是否包含相同的值</li>
+<li>使用<code>isSubsetOf()</code>方法来判断一个集合中的值是否也被包含在另外一个集合中</li>
+<li>使用<code>isSupersetOf()</code>方法来判断一个集合中包含的值是另一个集合中所有的值</li>
+<li>使用<code>isStrictSubsetOf()</code>方法来判断一个集合是否是另外一个集合的子集合并且和特定集合不相等</li>
+<li>使用<code>isStrictSupersetOf()</code>方法来判断一个集合是否是另外一个集合的父集合并且和特定集合不相等</li>
+<li>使用<code>isDisjointWith()</code>方法来判断两个结合是否不含有相同的值</li>
+</ul>
+<p>存储在集合中的元素必须是可以哈希化的，其哈希值用来判断与其它对象是否相同。<code>a == b</code>遵循的是<code>a.hashValue == b.hashValue</code>。</p>
+<p>相等运算符<code>==</code>符合以下性质：</p>
+<ul>
+<li>自反性 <code>a == a</code>为真</li>
+<li>对称性 如<code>a == b</code>则<code>b == a</code></li>
+<li>传递性 如<code>a == b</code>且<code>b == c</code>则<code>a == c</code></li>
+</ul>
+<h2 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h2><p>字典是一种存储<strong>键</strong>（Key）<strong>值</strong>（Value）对的容器。键是字典元素的标识符，相同值只能有一个。字典中元素并没有具体顺序，需要通过键进行访问。</p>
+<p>Swift中字典使用<code>Dictionary&lt;KeyType, ValueType&gt;</code>定义，<code>KeyType</code>必须是可以哈希的。</p>
+<p>字典也可以使用字面量进行初始化：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> airports: [<span class="type">String</span>:<span class="type">String</span>] = [<span class="string">"TYO"</span>: <span class="string">"Tokyo"</span>, <span class="string">"DUB"</span>: <span class="string">"Dublin"</span>]</span><br><span class="line">等同于：</span><br><span class="line"><span class="keyword">var</span> airports = [<span class="string">"TYO"</span>: <span class="string">"Tokyo"</span>, <span class="string">"DUB"</span>: <span class="string">"Dublin"</span>]</span><br></pre></td></tr></table></figure>
+<p>字典下标支持使用健来访问和修改对应元素：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> airports = [<span class="string">"TYO"</span>: <span class="string">"Tokyo"</span>, <span class="string">"DUB"</span>: <span class="string">"Dublin"</span>]</span><br><span class="line"><span class="keyword">var</span> country = airports[<span class="string">"TYO"</span>] <span class="comment">// 这里返回的是可选类型</span></span><br><span class="line"><span class="built_in">println</span>(country!)</span><br><span class="line">airports[<span class="string">"TYO"</span>] = <span class="string">"China"</span> <span class="comment">// 修改值</span></span><br><span class="line">airports[<span class="string">"TYO"</span>] = <span class="literal">nil</span> <span class="comment">// 删除元素</span></span><br><span class="line">airports[<span class="string">"TYOA"</span>] = <span class="string">"China"</span> <span class="comment">// 如果键不存在，则会添加一个新的元素</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>for-in</code>循环来遍历某个字典中的键值对。每一个字典中的数据项都由(key, value)元组形式返回，并且我们可以使用临时常量或者变量来分解这些元组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (airportCode, airportName) <span class="keyword">in</span> airports &#123;</span><br><span class="line">    <span class="built_in">println</span>(<span class="string">"<span class="subst">\(airportCode)</span>: <span class="subst">\(airportName)</span>"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建字典的语法与数组很类似：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> namesOfIntegers = <span class="type">Dictionary</span>&lt;<span class="type">Int</span>, <span class="type">String</span>&gt;()</span><br><span class="line">namesOfIntegers[<span class="number">16</span>] = <span class="string">"sixteen"</span> <span class="comment">// namesOfIntegers现在包含一个键值对</span></span><br><span class="line">namesOfIntegers = [:] <span class="comment">// namesOfIntegers还是[Int, String]类型的空字典</span></span><br></pre></td></tr></table></figure>
+<h2 id="集合的可变性"><a href="#集合的可变性" class="headerlink" title="集合的可变性"></a>集合的可变性</h2><p>创建一个数组或者字典并且把它分配成一个变量，这个集合将会是可变的，也就是可以添加更多或移除已存在的数据项来改变这个集合的大小；把数组或字典分配成常量，那么它就是不可变的，它的大小不能被改变。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Swift/" rel="tag">#Swift</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/31/learning-swift-1/" rel="next" title="Swift学习笔记（一）">
+                <i class="fa fa-chevron-left"></i> Swift学习笔记（一）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/01/learning-swift-3/" rel="prev" title="Swift学习笔记（三）">
+                Swift学习笔记（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/08/01/learning-swift-2/"
+           data-title="Swift学习笔记（二）" data-url="http://yjiyjige.github.io/2015/08/01/learning-swift-2/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://0.gravatar.com/avatar/399760be5a90853cc8acc00569530897"
+               alt="yjiyjige" />
+          <p class="site-author-name" itemprop="name">yjiyjige</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本运算符"><span class="nav-number">1.</span> <span class="nav-text">基本运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空合运算符"><span class="nav-number">2.</span> <span class="nav-text">空合运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区间运行符"><span class="nav-number">3.</span> <span class="nav-text">区间运行符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串和字符"><span class="nav-number">4.</span> <span class="nav-text">字符串和字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">5.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合"><span class="nav-number">6.</span> <span class="nav-text">集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典"><span class="nav-number">7.</span> <span class="nav-text">字典</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合的可变性"><span class="nav-number">8.</span> <span class="nav-text">集合的可变性</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjiyjige</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yjiyjige"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+
+</body>
+</html>

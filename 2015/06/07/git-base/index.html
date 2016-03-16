@@ -1,0 +1,757 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Git," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="关于版本控制系统版本控制系统（Version Control System）记录一个或一系列文件随时间的推移变化。如果需要，可以随时将文件还原到之前的某一状态。并且，版本控制系统记录了文件的所有变更记录，可以方便地找出谁操作了文件、谁引入了问题（issue）等等。
+版本控制系统的发展本地版本控制系统（Local Version Control Systems）本地版本控制系统的概念很简单，就是通过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git基础概念">
+<meta property="og:url" content="http://yjiyjige.github.io/2015/06/07/git-base/index.html">
+<meta property="og:site_name" content="YJIYJIGE BLOG">
+<meta property="og:description" content="关于版本控制系统版本控制系统（Version Control System）记录一个或一系列文件随时间的推移变化。如果需要，可以随时将文件还原到之前的某一状态。并且，版本控制系统记录了文件的所有变更记录，可以方便地找出谁操作了文件、谁引入了问题（issue）等等。
+版本控制系统的发展本地版本控制系统（Local Version Control Systems）本地版本控制系统的概念很简单，就是通过">
+<meta property="og:image" content="http://git-scm.com/figures/18333fig0101-tn.png">
+<meta property="og:image" content="http://git-scm.com/figures/18333fig0102-tn.png">
+<meta property="og:image" content="http://git-scm.com/figures/18333fig0103-tn.png">
+<meta property="og:image" content="http://git-scm.com/figures/18333fig0104-tn.png">
+<meta property="og:image" content="http://git-scm.com/figures/18333fig0105-tn.png">
+<meta property="og:updated_time" content="2015-10-27T15:11:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git基础概念">
+<meta name="twitter:description" content="关于版本控制系统版本控制系统（Version Control System）记录一个或一系列文件随时间的推移变化。如果需要，可以随时将文件还原到之前的某一状态。并且，版本控制系统记录了文件的所有变更记录，可以方便地找出谁操作了文件、谁引入了问题（issue）等等。
+版本控制系统的发展本地版本控制系统（Local Version Control Systems）本地版本控制系统的概念很简单，就是通过">
+<meta name="twitter:image" content="http://git-scm.com/figures/18333fig0101-tn.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Git基础概念 | YJIYJIGE BLOG </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">YJIYJIGE BLOG</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">He is so lazy and nothing left~</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Git基础概念
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-06-07T22:53:57+08:00" content="2015-06-07">
+              2015-06-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Coding/" itemprop="url" rel="index">
+                    <span itemprop="name">Coding</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/06/07/git-base/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/07/git-base/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="关于版本控制系统"><a href="#关于版本控制系统" class="headerlink" title="关于版本控制系统"></a>关于版本控制系统</h2><p><strong>版本控制系统</strong>（Version Control System）记录一个或一系列文件随时间的推移变化。如果需要，可以随时将文件还原到之前的某一状态。并且，版本控制系统记录了文件的所有变更记录，可以方便地找出谁操作了文件、谁引入了问题（issue）等等。</p>
+<h2 id="版本控制系统的发展"><a href="#版本控制系统的发展" class="headerlink" title="版本控制系统的发展"></a>版本控制系统的发展</h2><h3 id="本地版本控制系统（Local-Version-Control-Systems）"><a href="#本地版本控制系统（Local-Version-Control-Systems）" class="headerlink" title="本地版本控制系统（Local Version Control Systems）"></a>本地版本控制系统（Local Version Control Systems）</h3><p>本地版本控制系统的概念很简单，就是通过一个数据库来记录文件的所有变更记录。其工作原理如图所示：</p>
+<p><img src="http://git-scm.com/figures/18333fig0101-tn.png" alt="Local Version Control Systems"></p>
+<h3 id="集中式版本控制系统（Centralized-Version-Control-Systems）"><a href="#集中式版本控制系统（Centralized-Version-Control-Systems）" class="headerlink" title="集中式版本控制系统（Centralized Version Control Systems）"></a>集中式版本控制系统（Centralized Version Control Systems）</h3><p>本地版本控制系统的最大缺点就是无法与他人协同工作，因此集中式版本控制系统应运而生。 其中有著名的CVS、Subverion等。集中式版本控制系统的工作原理如下：</p>
+<p><img src="http://git-scm.com/figures/18333fig0102-tn.png" alt="Centralized Version Control Systems"></p>
+<p>可以看到整个系统分为了<strong>服务器</strong>和<strong>客户端</strong>两个部分。服务器维护了一份最新、最完整的文件。客户端的三个最基本操作：<strong>取</strong>（Checkout）、<strong>更</strong>（Update）、<strong>提</strong>（Commit）。</p>
+<h3 id="分布式版本控制系统（Distributed-Version-Control-Systems）"><a href="#分布式版本控制系统（Distributed-Version-Control-Systems）" class="headerlink" title="分布式版本控制系统（Distributed Version Control Systems）"></a>分布式版本控制系统（Distributed Version Control Systems）</h3><p>想像一下，对于集中式版本控制系统而言，如果很不幸，服务器挂了，带来的结果可能是毁灭性的。再者，假如服务器当机了几个小时（这还挺常见的），这段时间内是无法对服务器进行任何操作的。</p>
+<p>分布式版本控制系统也有服务器与客户端之分，所不同的是，每一个客户端都是<strong>仓库</strong>（Repository）的镜像。同时，每一个客户端都具有独立完整的版本控制能力。就算服务器挂了，任意一台客户端都有能力将所有文件还原回去。结构如下：</p>
+<p><img src="http://git-scm.com/figures/18333fig0103-tn.png" alt="Distributed Version Control Systems"></p>
+<h2 id="Git的设计目标"><a href="#Git的设计目标" class="headerlink" title="Git的设计目标"></a>Git的设计目标</h2><p>Git最初由Linux社区开发，用来维护Linux内核代码的。其一开始设计就考虑了以下问题：</p>
+<ul>
+<li><code>Speed</code> 高速</li>
+<li><code>Simple design</code> 设计简单</li>
+<li><code>Strong support for non-linear development(thousands of parallel branches)</code> 强力支持非线性开发，支持成千上万的平行分支</li>
+<li><code>Fully distributed</code> 完全分布式</li>
+<li><code>Able to handle large projects like the Linux kernal efficiently(speed and data size)</code> 能够处理像Linux内核这样的大量项目，要求高速和大数据量。</li>
+</ul>
+<h2 id="Git的特点"><a href="#Git的特点" class="headerlink" title="Git的特点"></a>Git的特点</h2><h3 id="记录文件快照而非文件差异："><a href="#记录文件快照而非文件差异：" class="headerlink" title="记录文件快照而非文件差异："></a>记录文件快照而非文件差异：</h3><p>其他版本控制系统，像Subversion，每次记录的是实际上是新版本文件相较于上一版本的差异。其工作原理图如下：</p>
+<p><img src="http://git-scm.com/figures/18333fig0104-tn.png" alt="other version control systems"></p>
+<p>而Git的原理并非如此，对于每一次的提交，Git实际上是对所有文件进行了一次快照。每一次的快照保存的是文件版本的引用。如果文件没有改变就指向原来的文件，否则指向新文件。工作原理如下：</p>
+<p><img src="http://git-scm.com/figures/18333fig0105-tn.png" alt="Git"></p>
+<h3 id="几乎所有操作都是本地执行的："><a href="#几乎所有操作都是本地执行的：" class="headerlink" title="几乎所有操作都是本地执行的："></a>几乎所有操作都是本地执行的：</h3><p>由于每一个客户端都拥有完整的服务器文件镜像，所以绝大多数的操作只需要在本地就能执行。查询日志、对比文件差异这种操作都只要在本地就能执行。甚至在没有网络的情况下也可以先将文件提交到本地系统，等连上服务器再进行推送。</p>
+<h3 id="保持数据的完整性："><a href="#保持数据的完整性：" class="headerlink" title="保持数据的完整性："></a>保持数据的完整性：</h3><p>文件在保存到Git之前都要时行<strong>校验和</strong>（Checksum）计算，该结果将作为数据的唯一标识和索引。</p>
+<p>Git使用的校验和算法为SHA-1，通过对文件的内容或目录结构计算出一个40位的十六进制字符串。Git数据库就是使用该值作索引的，而非文件名。</p>
+<h3 id="Git管理文件的三种状态："><a href="#Git管理文件的三种状态：" class="headerlink" title="Git管理文件的三种状态："></a>Git管理文件的三种状态：</h3><p>在Git内部，一个文件可能有三种状态：<strong>已提交</strong>（Commited）、<strong>已修改</strong>（Modified）、<strong>已暂存</strong>（Staged）。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag">#Git</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/06/07/using-sublime-text/" rel="next" title="Sublime Text 入门">
+                <i class="fa fa-chevron-left"></i> Sublime Text 入门
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/06/07/git-file-status/" rel="prev" title="Git文件状态">
+                Git文件状态 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/06/07/git-base/"
+           data-title="Git基础概念" data-url="http://yjiyjige.github.io/2015/06/07/git-base/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://0.gravatar.com/avatar/399760be5a90853cc8acc00569530897"
+               alt="yjiyjige" />
+          <p class="site-author-name" itemprop="name">yjiyjige</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于版本控制系统"><span class="nav-number">1.</span> <span class="nav-text">关于版本控制系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版本控制系统的发展"><span class="nav-number">2.</span> <span class="nav-text">版本控制系统的发展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地版本控制系统（Local-Version-Control-Systems）"><span class="nav-number">2.1.</span> <span class="nav-text">本地版本控制系统（Local Version Control Systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集中式版本控制系统（Centralized-Version-Control-Systems）"><span class="nav-number">2.2.</span> <span class="nav-text">集中式版本控制系统（Centralized Version Control Systems）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式版本控制系统（Distributed-Version-Control-Systems）"><span class="nav-number">2.3.</span> <span class="nav-text">分布式版本控制系统（Distributed Version Control Systems）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git的设计目标"><span class="nav-number">3.</span> <span class="nav-text">Git的设计目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git的特点"><span class="nav-number">4.</span> <span class="nav-text">Git的特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#记录文件快照而非文件差异："><span class="nav-number">4.1.</span> <span class="nav-text">记录文件快照而非文件差异：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#几乎所有操作都是本地执行的："><span class="nav-number">4.2.</span> <span class="nav-text">几乎所有操作都是本地执行的：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保持数据的完整性："><span class="nav-number">4.3.</span> <span class="nav-text">保持数据的完整性：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git管理文件的三种状态："><span class="nav-number">4.4.</span> <span class="nav-text">Git管理文件的三种状态：</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yjiyjige</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yjiyjige"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+
+</body>
+</html>
